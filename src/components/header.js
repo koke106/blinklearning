@@ -1,9 +1,11 @@
-function Header() {
+import { Link } from "react-router-dom"
+
+export default function Header() {
   return (
     <header>
-      <img className='logo' alt='Blinklearning logo' src='assets/img/logo.png' />
-    </header>
+      <Link to={`/`}>
+        <img className='logo' alt='Blinklearning logo' src='assets/img/logo.png' />
+      </Link>
+    </header> 
   )
 }
-
-export default Header
