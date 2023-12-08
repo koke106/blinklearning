@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
-import { store } from './store'
-import { Provider } from 'react-redux'
-
+import Context from "./context/context";
 import Home from './containers/Home';
 import Test from './containers/Test';
 import Results from './containers/Results';
@@ -30,9 +28,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Context>
       <RouterProvider router={router} />
-    </Provider>
+    </Context>
   </React.StrictMode>
 );
 
