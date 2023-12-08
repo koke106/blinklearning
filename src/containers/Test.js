@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateTestResponses } from '../redux/testsSlice';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/header';
 import { getTestAnswers, getTestPossibleResponses } from '../utils/fakeapi';
 
 import '../css/Test.scss';
+import { TestContext } from '../context/context';
 
 function Test() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [responses, setResponses] = useState(useSelector((state) => state.tests.test));
+  const [responses, setResponses] = useState(useContext(TestContext));
   
   const testAnswers = getTestAnswers();
   const testPossibleResponses = getTestPossibleResponses();
@@ -36,7 +34,8 @@ function Test() {
   }
 
   const saveResponses = () => {
-    dispatch(updateTestResponses({ ...responses, done: true }));
+    responses.setDone({ ...responses});
+    responses.done = true;
     navigate(`/`);
   }
 
@@ -64,7 +63,7 @@ function Test() {
       <div className='content test-wrapper'>
         {testAnswers.map(answer => {
           return (
-            <div className='answer'>
+            <div className='answer' key={answer.answerId}>
               <p className='answer-title'>{answer.answerTitle}</p>
               <div className='answer-placeholder' id={answer.answerId} onDrop={e => drop(e)} onDragOver={e => allowDrop(e)}></div>
             </div>

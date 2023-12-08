@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import '../css/Home.scss';
+import { useContext } from 'react';
+import { TestContext } from '../context/context';
 
-function Home() {
-  const testResponses = useSelector((state) => state.tests.test);
+export default function Home() {
+  const testResponses = useContext(TestContext);
 
   return (
     <div className='home'>
@@ -18,5 +19,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

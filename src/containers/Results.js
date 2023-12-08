@@ -1,12 +1,12 @@
-import { useSelector } from 'react-redux';
-
 import Header from '../components/header';
 import { getTestAnswers } from '../utils/fakeapi';
 
 import '../css/Test.scss';
+import { useContext } from 'react';
+import { TestContext } from '../context/context';
 
 function Results() {
-  const results = useSelector((state) => state.tests.test);
+  const results = useContext(TestContext);
 
   const testAnswers = getTestAnswers();
 
@@ -49,11 +49,11 @@ function Results() {
   }
 
   const returnAnswer = (answer) => {
-    if (!results[answer.answerId])
+    if (!results.done[answer.answerId])
       return false;
 
-    const response = results[answer.answerId];
-    const isValid = answer.response === results[answer.answerId];
+    const response = results.done[answer.answerId];
+    const isValid = answer.response === results.done[answer.answerId];
 
     return (
       <div key={answer.answerId} className={`answer ${isValid ? 'valid' : 'invalid'}`}>
