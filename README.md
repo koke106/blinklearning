@@ -4,8 +4,4 @@ To start this project you only need to install the dependencies run `npm install
 
 # HTML For button
 
-´<div class="custom-button">
-  <div class="button-inner">
-    <span class="button-text">Checkout</span>      
-  </div>
-</div>´
+```<div class="custom-button"> <div class="button-inner"> <span class="button-text">Checkout</span> </div> </div>```
