@@ -1,15 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/header';
 import { getTestAnswers, getTestPossibleResponses } from '../utils/fakeapi';
 
 import '../css/Test.scss';
-import { TestContext } from '../context/context';
+import { useTest } from '../context/context';
 
 function Test() {
+  const { test, updateTest} = useTest()
   const navigate = useNavigate();
-  const [responses, setResponses] = useState(useContext(TestContext));
+  const [responses, setResponses] = useState(test?.responses ?? {});
   
   const testAnswers = getTestAnswers();
   const testPossibleResponses = getTestPossibleResponses();
@@ -34,8 +35,7 @@ function Test() {
   }
 
   const saveResponses = () => {
-    responses.setDone({ ...responses});
-    responses.done = true;
+    updateTest({done:true, responses})
     navigate(`/`);
   }
 
@@ -43,7 +43,7 @@ function Test() {
     testPossibleResponses.forEach(response => {
       document.getElementById('responses').appendChild(document.getElementById(response));
     });
-    setResponses({ done: false });
+    updateTest({ done: false, responses: {} });
   }
 
   const isAnswersValid = () => {

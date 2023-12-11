@@ -2,12 +2,10 @@ import Header from '../components/header';
 import { getTestAnswers } from '../utils/fakeapi';
 
 import '../css/Test.scss';
-import { useContext } from 'react';
-import { TestContext } from '../context/context';
+import { useTest } from '../context/context';
 
 function Results() {
-  const results = useContext(TestContext);
-
+  const { test } = useTest()
   const testAnswers = getTestAnswers();
 
   const possibleResponses = {
@@ -49,11 +47,11 @@ function Results() {
   }
 
   const returnAnswer = (answer) => {
-    if (!results.done[answer.answerId])
+    if (!test.responses[answer.answerId])
       return false;
 
-    const response = results.done[answer.answerId];
-    const isValid = answer.response === results.done[answer.answerId];
+    const response = test.responses[answer.answerId];
+    const isValid = answer.response === test.responses[answer.answerId];
 
     return (
       <div key={answer.answerId} className={`answer ${isValid ? 'valid' : 'invalid'}`}>
